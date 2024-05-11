@@ -480,6 +480,16 @@ Bruno Rodrigues
 </section>
 <section id="a-basic-nix-expression" class="slide level2">
 <h2>A basic Nix expression</h2>
+<pre><code>let
+  pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/976fa3369d722e76f37c77493d99829540d43845.tar.gz") {};
+  system_packages = builtins.attrValues {
+    inherit (pkgs) R ;
+  };
+in
+  pkgs.mkShell {
+    buildInputs = [ system_packages ];
+    shellHook = "R --vanilla";
+  }</code></pre>
 </section>
 <section id="nix-expressions" class="slide level2">
 <h2>Nix expressions</h2>
@@ -514,15 +524,15 @@ Bruno Rodrigues
 <li>Simply use the provided <code>rix()</code> function:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(rix)</span>
-<span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a><span class="fu">rix</span>(<span class="at">r_ver =</span> <span class="st">"4.3.1"</span>,</span>
-<span id="cb1-4"><a href=""></a>    <span class="at">r_pkgs =</span> <span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>),</span>
-<span id="cb1-5"><a href=""></a>    <span class="at">system_pkgs =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-6"><a href=""></a>    <span class="at">git_pkgs =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-7"><a href=""></a>    <span class="at">tex_pkgs =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-8"><a href=""></a>    <span class="at">ide =</span> <span class="st">"rstudio"</span>,</span>
-<span id="cb1-9"><a href=""></a>    <span class="at">project_path =</span> <span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(rix)</span>
+<span id="cb2-2"><a href=""></a></span>
+<span id="cb2-3"><a href=""></a><span class="fu">rix</span>(<span class="at">r_ver =</span> <span class="st">"4.3.1"</span>,</span>
+<span id="cb2-4"><a href=""></a>    <span class="at">r_pkgs =</span> <span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>),</span>
+<span id="cb2-5"><a href=""></a>    <span class="at">system_pkgs =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-6"><a href=""></a>    <span class="at">git_pkgs =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-7"><a href=""></a>    <span class="at">tex_pkgs =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-8"><a href=""></a>    <span class="at">ide =</span> <span class="st">"rstudio"</span>,</span>
+<span id="cb2-9"><a href=""></a>    <span class="at">project_path =</span> <span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Generates <a href="https://raw.githubusercontent.com/b-rodrigues/fosdem2024_pres/master/shell.nix">this expression</a>.</li>
@@ -534,13 +544,13 @@ Bruno Rodrigues
 <li>Also possible to evaluate single function inside a “subshell”:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>out_nix <span class="ot">&lt;-</span> <span class="fu">with_nix</span>(</span>
-<span id="cb2-2"><a href=""></a>  <span class="at">expr =</span> <span class="cf">function</span>() <span class="fu">my_function</span>(...),</span>
-<span id="cb2-3"><a href=""></a>  <span class="at">program =</span> <span class="st">"R"</span>,</span>
-<span id="cb2-4"><a href=""></a>  <span class="at">exec_mode =</span> <span class="st">"non-blocking"</span>, <span class="co"># run as background process</span></span>
-<span id="cb2-5"><a href=""></a>  <span class="at">project_path =</span> path_to_subshell.nix,</span>
-<span id="cb2-6"><a href=""></a>  <span class="at">message_type =</span> <span class="st">"simple"</span> <span class="co"># you can do `"verbose"`, too</span></span>
-<span id="cb2-7"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>out_nix <span class="ot">&lt;-</span> <span class="fu">with_nix</span>(</span>
+<span id="cb3-2"><a href=""></a>  <span class="at">expr =</span> <span class="cf">function</span>() <span class="fu">my_function</span>(...),</span>
+<span id="cb3-3"><a href=""></a>  <span class="at">program =</span> <span class="st">"R"</span>,</span>
+<span id="cb3-4"><a href=""></a>  <span class="at">exec_mode =</span> <span class="st">"non-blocking"</span>, <span class="co"># run as background process</span></span>
+<span id="cb3-5"><a href=""></a>  <span class="at">project_path =</span> path_to_subshell.nix,</span>
+<span id="cb3-6"><a href=""></a>  <span class="at">message_type =</span> <span class="st">"simple"</span> <span class="co"># you can do `"verbose"`, too</span></span>
+<span id="cb3-7"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Works from R installed via Nix or not!</li>
