@@ -11,6 +11,14 @@ execute:
 
 ## Who am I?
 
+ Bruno Rodrigues, head of the statistics and data strategy departments at the
+ Ministry of Research and Higher education in Luxembourg
+
+Slides available online at https://is.gd/raps_rug_tunis
+
+Code available at: https://github.com/b-rodrigues/dipf_workshop
+
+
 ## What is Nix?
 
 ## The Nix package manager

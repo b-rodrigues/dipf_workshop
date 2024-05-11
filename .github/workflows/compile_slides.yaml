@@ -9,6 +9,10 @@ on:
       - main
       - master
 
+permissions:
+  contents: read
+  deployments: write
+
 jobs:
   targets:
     runs-on: ubuntu-latest
