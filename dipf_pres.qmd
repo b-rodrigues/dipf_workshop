@@ -76,6 +76,16 @@ Nix deals with everything, with one single text file!
 
 ### "Functional" package manager
 
+- Nix: a *functional* package mananger
+
+- Functional, as in, inpired by mathematical functions
+
+- Math functions?
+
+\[
+f(x)=y
+\]
+
 ### A basic Nix expression 
 
 ## Nix expressions
