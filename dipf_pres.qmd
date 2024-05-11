@@ -100,11 +100,14 @@ f(x)=y
 > closed, it is not safe to deploy, since using them might
 > cause other components to be referenced that are missing on the target system.
 
-
-
 ## A basic Nix expression 
 
 ## Nix expressions
+
+- Nix expressions can be used to install software 
+- But we will use them to build per-project development shells 
+- We will include R, LaTeX packages, or Quarto, Python, Julia....
+- Nix takes care of installating every dependency down to the compiler!
 
 ## CRAN and Bioconductor
 
