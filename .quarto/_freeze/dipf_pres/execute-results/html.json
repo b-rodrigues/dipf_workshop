@@ -1,0 +1,19 @@
+{
+  "hash": "e203b403cc151c079487e76025cc2902",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"rix: reproducible development environments for R programmers\"\nauthor: \"Bruno Rodrigues\"\nformat:\n  revealjs:\n    slide-number: true\n    theme: solarized\nexecute:\n  echo: true\n---\n\n\n## Who am I?\n\nBruno Rodrigues, head of the statistics and data strategy departments at the\n Ministry of Research and Higher education in Luxembourg\n\nUsing R since 2009\n\nSlides available online at https://is.gd/dipf_workshop\n\nCode available at: https://github.com/b-rodrigues/dipf_workshop\n\n## Goal of this workshop\n\nLearn just enough of Nix to use it for reproducibility \n\n## What is Nix?\n\n- A package manager\n- A programming language\n- An operating system ([NixOS](https://nixos.org/))\n\nOur focus today: the package manager\n\n## The Nix package manager\n\n## The reproducibility continuum\n\n## Reproducibility with Nix\n\n### \"Functional\" package manager\n\n### A basic Nix expression \n\n## Nix expressions\n\n## CRAN and Bioconductor\n\n- CRAN is the repository of R packages to extend the language\n- As of writing, +20000 packages available\n- Biocondcutor: repository with a focus on Bioinformatics: +2000 more packages\n- Almost all available through `nixpkgs` in the `rPackages` set!\n\n## Per-project environments\n\n- Per-project environments are not really a thing\n- Focus on providing a per-project library of packages\n- Docker if reproducibility is required (see [Rocker project](https://rocker-project.org/))\n\n## rix 1/2\n\n- Per-project reproducible environments with `{rix}`.\n- Simply use the provided `rix()` function:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(rix)\n\nrix(r_ver = \"4.3.1\",\n    r_pkgs = c(\"dplyr\", \"ggplot2\"),\n    system_pkgs = NULL,\n    git_pkgs = NULL,\n    tex_pkgs = NULL,\n    ide = \"rstudio\",\n    project_path = \".\")\n```\n:::\n\n\n- Generates [this expression](https://raw.githubusercontent.com/b-rodrigues/fosdem2024_pres/master/shell.nix).\n\n\n## rix 2/2\n\n- Also possible to evaluate single function inside a \"subshell\":\n\n\n::: {.cell}\n\n```{.r .cell-code}\nout_nix <- with_nix(\n  expr = function() my_function(...),\n  program = \"R\",\n  exec_mode = \"non-blocking\", # run as background process\n  project_path = path_to_subshell.nix,\n  message_type = \"simple\" # you can do `\"verbose\"`, too\n)\n```\n:::\n\n\n- Works from R installed via Nix or not!\n\n## Live Demo\n\n## Nix and Github Actions\n\n## To know more\n\n```\nhttps://b-rodrigues.github.io/rix/\n```\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

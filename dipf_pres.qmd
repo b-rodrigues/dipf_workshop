@@ -1,0 +1,104 @@
+---
+title: "rix: reproducible development environments for R programmers"
+author: "Bruno Rodrigues"
+format:
+  revealjs:
+    slide-number: true
+    theme: solarized
+execute:
+  echo: true
+---
+
+## Who am I?
+
+Bruno Rodrigues, head of the statistics and data strategy departments at the
+ Ministry of Research and Higher education in Luxembourg
+
+Using R since 2009
+
+Slides available online at https://is.gd/dipf_workshop
+
+Code available at: https://github.com/b-rodrigues/dipf_workshop
+
+## Goal of this workshop
+
+Learn just enough of Nix to use it for reproducibility 
+
+## What is Nix?
+
+- A package manager
+- A programming language
+- An operating system ([NixOS](https://nixos.org/))
+
+Our focus today: the package manager
+
+## The Nix package manager
+
+## The reproducibility continuum
+
+## Reproducibility with Nix
+
+### "Functional" package manager
+
+### A basic Nix expression 
+
+## Nix expressions
+
+## CRAN and Bioconductor
+
+- CRAN is the repository of R packages to extend the language
+- As of writing, +20000 packages available
+- Biocondcutor: repository with a focus on Bioinformatics: +2000 more packages
+- Almost all available through `nixpkgs` in the `rPackages` set!
+
+## Per-project environments
+
+- Per-project environments are not really a thing
+- Focus on providing a per-project library of packages
+- Docker if reproducibility is required (see [Rocker project](https://rocker-project.org/))
+
+## rix 1/2
+
+- Per-project reproducible environments with `{rix}`.
+- Simply use the provided `rix()` function:
+
+```{r, eval = FALSE}
+library(rix)
+
+rix(r_ver = "4.3.1",
+    r_pkgs = c("dplyr", "ggplot2"),
+    system_pkgs = NULL,
+    git_pkgs = NULL,
+    tex_pkgs = NULL,
+    ide = "rstudio",
+    project_path = ".")
+```
+
+- Generates [this expression](https://raw.githubusercontent.com/b-rodrigues/fosdem2024_pres/master/shell.nix).
+
+
+## rix 2/2
+
+- Also possible to evaluate single function inside a "subshell":
+
+```{r, eval = F}
+out_nix <- with_nix(
+  expr = function() my_function(...),
+  program = "R",
+  exec_mode = "non-blocking", # run as background process
+  project_path = path_to_subshell.nix,
+  message_type = "simple" # you can do `"verbose"`, too
+)
+```
+
+- Works from R installed via Nix or not!
+
+## Live Demo
+
+## Nix and Github Actions
+
+## To know more
+
+```
+https://b-rodrigues.github.io/rix/
+```
