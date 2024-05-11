@@ -11,14 +11,14 @@ execute:
 
 ## Who am I?
 
-Bruno Rodrigues, head of the statistics and data strategy departments at the
+- Bruno Rodrigues, head of the statistics and data strategy departments at the
  Ministry of Research and Higher education in Luxembourg
 
-Using R since 2009
+- Using R since 2009
 
-Slides available online at https://is.gd/dipf_workshop
+- Slides available online at [https://is.gd/nix_dipf](https://is.gd/nix_dipf
 
-Code available at: https://github.com/b-rodrigues/dipf_workshop
+- Code available at: [https://github.com/b-rodrigues/dipf_workshop](https://github.com/b-rodrigues/dipf_workshop) 
 
 ## Goal of this workshop
 
