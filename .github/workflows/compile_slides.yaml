@@ -10,8 +10,7 @@ on:
       - master
 
 permissions:
-  contents: read
-  deployments: write
+  contents: write
 
 jobs:
   targets:
@@ -31,9 +30,6 @@ jobs:
         uses: cachix/cachix-action@v14
         with:
           name: rstats-on-nix
-
-      - name: Use Nix cache for GA
-        uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Build development environment
         run: |
