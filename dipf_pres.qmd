@@ -16,7 +16,7 @@ execute:
 
 - Using R since 2009
 
-- Slides available online at [https://is.gd/nix_dipf](https://is.gd/nix_dipf
+- Slides available online at [https://is.gd/nix_dipf](https://is.gd/nix_dipf)
 
 - Code available at: [https://github.com/b-rodrigues/dipf_workshop](https://github.com/b-rodrigues/dipf_workshop) 
 
@@ -50,7 +50,7 @@ A popular package manager:
 
 ## The Nix package manager
 
-![img/play_store.png]
+![Google Play Store](img/play_store.png)
 
 ## The reproducibility continuum
 
@@ -74,7 +74,7 @@ A popular approach: Docker + `{renv}`
 
 Nix deals with everything, with one single text file!
 
-### "Functional" package manager
+## "Functional" package manager
 
 - Nix: a *functional* package mananger
 
@@ -86,7 +86,7 @@ Nix deals with everything, with one single text file!
 f(x)=y
 \]
 
-### A basic Nix expression 
+## A basic Nix expression 
 
 ## Nix expressions
 
