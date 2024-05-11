@@ -459,14 +459,24 @@ Bruno Rodrigues
 <p>A popular approach: Docker + <code>{renv}</code></p>
 <p>Nix deals with everything, with one single text file!</p>
 </section>
-<section id="functional-package-manager" class="slide level2">
-<h2>“Functional” package manager</h2>
+<section id="functional-package-manager-12" class="slide level2">
+<h2>“Functional” package manager (1/2)</h2>
 <ul>
 <li><p>Nix: a <em>functional</em> package mananger</p></li>
 <li><p>Functional, as in, inpired by mathematical functions</p></li>
-<li><p>Math functions?</p></li>
+<li><p>Why math functions?</p></li>
 </ul>
 <p>[ f(x)=y ]</p>
+</section>
+<section id="functional-package-manager-22" class="slide level2">
+<h2>“Functional” package manager (2/2)</h2>
+<ul>
+<li><p>Building a Nix expression always results in the same output</p></li>
+<li><p>Output doesn’t depend on current system:</p></li>
+</ul>
+<blockquote>
+<p>The idea is to always deploy component closures: if we deploy a component, then we must also deploy its dependencies, their dependencies, and so on. That is, we must always deploy a set of components that is closed under the ‘’depends on’’ relation. Since closures are selfcontained, they are the units of complete software deployment. After all, if a set of components is not closed, it is not safe to deploy, since using them might cause other components to be referenced that are missing on the target system.</p>
+</blockquote>
 </section>
 <section id="a-basic-nix-expression" class="slide level2">
 <h2>A basic Nix expression</h2>

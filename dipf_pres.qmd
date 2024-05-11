@@ -74,17 +74,33 @@ A popular approach: Docker + `{renv}`
 
 Nix deals with everything, with one single text file!
 
-## "Functional" package manager
+## "Functional" package manager (1/2)
 
 - Nix: a *functional* package mananger
 
 - Functional, as in, inpired by mathematical functions
 
-- Math functions?
+- Why math functions?
 
 \[
 f(x)=y
 \]
+
+## "Functional" package manager (2/2)
+
+- Building a Nix expression always results in the same output 
+
+- Output doesn't depend on current system: 
+
+> The idea is to always deploy component closures: if we deploy a
+> component, then we must also deploy its dependencies, their dependencies, and so on. That is, we must
+> always deploy a set of components that is closed under
+> the ''depends on'' relation. Since closures are selfcontained, they are the units of complete software
+> deployment. After all, if a set of components is not
+> closed, it is not safe to deploy, since using them might
+> cause other components to be referenced that are missing on the target system.
+
+
 
 ## A basic Nix expression 
 
