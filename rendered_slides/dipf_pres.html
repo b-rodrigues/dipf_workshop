@@ -413,8 +413,8 @@ Bruno Rodrigues
 <h2>Goal of this workshop</h2>
 <p>Learn just enough of Nix to use it for reproducibility</p>
 </section>
-<section id="what-is-nix" class="slide level2">
-<h2>What is Nix?</h2>
+<section id="what-is-nix-12" class="slide level2">
+<h2>What is Nix? (1/2)</h2>
 <ul>
 <li>A package manager</li>
 <li>A programming language</li>
@@ -422,14 +422,40 @@ Bruno Rodrigues
 </ul>
 <p>Our focus today: the package manager</p>
 </section>
+<section id="what-is-nix-22" class="slide level2">
+<h2>What is Nix? (2/2)</h2>
+<p>A word of warning: Nix is quite complex</p>
+<p>It does require some time to learn on the user’s part</p>
+<p>But I developed <code>{rix}</code> which will help</p>
+</section>
 <section id="the-nix-package-manager" class="slide level2">
 <h2>The Nix package manager</h2>
+<p>Package manager: tool to install and manage <em>packages</em></p>
+<p>Package: any piece of software (not just R packages)</p>
+<p>A popular package manager:</p>
+</section>
+<section id="the-nix-package-manager-1" class="slide level2">
+<h2>The Nix package manager</h2>
+<p>![img/play_store.png]</p>
 </section>
 <section id="the-reproducibility-continuum" class="slide level2">
 <h2>The reproducibility continuum</h2>
+<ul>
+<li><p>Make sure that the required/correct version of R (or any other language) is installed;</p></li>
+<li><p>Make sure that the required versions of packages are installed;</p></li>
+<li><p>Make sure that system dependencies are installed (for example, Java installation for rJava);</p></li>
+<li><p>Make sure that you can install all of this for the hardware you have on hand.</p></li>
+</ul>
 </section>
-<section id="reproducibility-with-nix" class="slide level2">
-<h2>Reproducibility with Nix</h2>
+<section id="reproducibility-in-the-r-ecosystem" class="slide level2">
+<h2>Reproducibility in the R ecosystem</h2>
+<ul>
+<li><code>{renv}</code> deals with R packages</li>
+<li>Still need to take care of R itself</li>
+<li>System-level dependencies as well!</li>
+</ul>
+<p>A popular approach: Docker + <code>{renv}</code></p>
+<p>Nix deals with everything, with one single text file!</p>
 <h3 id="functional-package-manager">“Functional” package manager</h3>
 <h3 id="a-basic-nix-expression">A basic Nix expression</h3>
 </section>

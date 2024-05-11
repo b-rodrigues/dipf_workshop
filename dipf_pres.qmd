@@ -22,9 +22,9 @@ Code available at: https://github.com/b-rodrigues/dipf_workshop
 
 ## Goal of this workshop
 
-Learn just enough of Nix to use it for reproducibility 
+Learn just enough of Nix to use it for reproducibility
 
-## What is Nix?
+## What is Nix? (1/2)
 
 - A package manager
 - A programming language
@@ -32,11 +32,47 @@ Learn just enough of Nix to use it for reproducibility
 
 Our focus today: the package manager
 
+## What is Nix? (2/2)
+
+A word of warning: Nix is quite complex
+
+It does require some time to learn on the user's part
+
+But I developed `{rix}` which will help
+
 ## The Nix package manager
+
+Package manager: tool to install and manage *packages*
+
+Package: any piece of software (not just R packages)
+
+A popular package manager:
+
+## The Nix package manager
+
+![img/play_store.png]
 
 ## The reproducibility continuum
 
-## Reproducibility with Nix
+- Make sure that the required/correct version of R (or any other language) is
+  installed;
+
+- Make sure that the required versions of packages are installed;
+
+- Make sure that system dependencies are installed (for example, 
+  Java installation for rJava);
+
+- Make sure that you can install all of this for the hardware you have on hand.
+
+## Reproducibility in the R ecosystem
+
+- `{renv}` deals with R packages
+- Still need to take care of R itself
+- System-level dependencies as well!
+
+A popular approach: Docker + `{renv}`
+
+Nix deals with everything, with one single text file!
 
 ### "Functional" package manager
 
