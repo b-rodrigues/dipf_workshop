@@ -11,15 +11,26 @@ execute:
 
 ## Who am I?
 
- Bruno Rodrigues, head of the statistics and data strategy departments at the
+Bruno Rodrigues, head of the statistics and data strategy departments at the
  Ministry of Research and Higher education in Luxembourg
 
-Slides available online at https://is.gd/raps_rug_tunis
+Using R since 2009
+
+Slides available online at https://is.gd/dipf_workshop
 
 Code available at: https://github.com/b-rodrigues/dipf_workshop
 
+## Goal of this workshop
+
+Learn just enough of Nix to use it for reproducibility 
 
 ## What is Nix?
+
+- A package manager
+- A programming language
+- An operating system ([NixOS](https://nixos.org/))
+
+Our focus today: the package manager
 
 ## The Nix package manager
 
