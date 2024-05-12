@@ -18,11 +18,13 @@ execute:
 
 - Slides available online at [https://is.gd/nix_dipf](https://is.gd/nix_dipf)
 
-- Code available at: [https://github.com/b-rodrigues/dipf_workshop](https://github.com/b-rodrigues/dipf_workshop) 
+- Code available at: [https://github.com/b-rodrigues/dipf_workshop](https://github.com/b-rodrigues/dipf_workshop)
 
 ## Goal of this workshop
 
-Learn just enough of Nix to use it for reproducibility
+- Learn just enough of Nix to use it for your R projects
+- Skim how to use Nix with Github Actions
+- Time allowing: how to make your own binary cache using [Cachix](https://www.cachix.org/)
 
 ## What is Nix? (1/2)
 
@@ -38,7 +40,7 @@ A word of warning: Nix is quite complex
 
 It does require some time to learn on the user's part
 
-But I developed `{rix}` which will help
+But `{rix}` will help
 
 ## The Nix package manager
 
@@ -59,7 +61,7 @@ A popular package manager:
 
 - Make sure that the required versions of packages are installed;
 
-- Make sure that system dependencies are installed (for example, 
+- Make sure that system dependencies are installed (for example,
   Java installation for rJava);
 
 - Make sure that you can install all of this for the hardware you have on hand.
@@ -72,7 +74,7 @@ A popular package manager:
 
 A popular approach: Docker + `{renv}`
 
-Nix deals with everything, with one single text file!
+Nix deals with everything, with one single text file (called a Nix expression)!
 
 ## "Functional" package manager (1/2)
 
@@ -82,25 +84,25 @@ Nix deals with everything, with one single text file!
 
 - Why math functions?
 
-\[
-f(x)=y
-\]
+-> f(x)=y
 
 ## "Functional" package manager (2/2)
 
-- Building a Nix expression always results in the same output 
+- Building a Nix expression always results in the same output
 
-- Output doesn't depend on current system: 
+- Output doesn't depend on state of current system:
 
-> The idea is to always deploy component closures: if we deploy a
-> component, then we must also deploy its dependencies, their dependencies, and so on. That is, we must
-> always deploy a set of components that is closed under
-> the ''depends on'' relation. Since closures are selfcontained, they are the units of complete software
-> deployment. After all, if a set of components is not
-> closed, it is not safe to deploy, since using them might
-> cause other components to be referenced that are missing on the target system.
+> The idea is to always deploy component closures: if we deploy a component,
+> then we must also deploy its dependencies, their dependencies, and so on. That
+> is, we must always deploy a set of components that is closed under the
+> ''depends on'' relation. Since closures are selfcontained, they are the units
+> of complete software deployment. After all, if a set of components is not
+> closed, it is not safe to deploy, since using them might cause other
+> components to be referenced that are missing on the target system.
 
-## A basic Nix expression 
+Eelco Dolstra, *Nix: A Safe and Policy-Free System for Software Deployment*
+
+## A basic Nix expression (1/5)
 
 ```
 let
@@ -114,6 +116,12 @@ in
     shellHook = "R --vanilla";
   }
 ```
+
+There's a lot to discuss here!
+
+## A basic Nix expression (2/5)
+
+- Written in the Nix language
 
 ## Nix expressions
 
@@ -177,6 +185,12 @@ out_nix <- with_nix(
 
 ## To know more
 
-```
-https://b-rodrigues.github.io/rix/
-```
+- Official Nix documentation: [https://nix.dev/](https://nix.dev/)
+
+- Nix pills: [https://nixos.org/guides/nix-pills/00-preface](https://nixos.org/guides/nix-pills/00-preface)
+
+- Nix tutorial by INRIA: [https://nix-tutorial.gitlabpages.inria.fr/nix-tutorial/](https://nix-tutorial.gitlabpages.inria.fr/nix-tutorial/)
+
+- My blog: [https://b-rodrigues.github.io/rix/](https://b-rodrigues.github.io/rix/)
+
+- My book (doesn't cover Nix, but Docker, `{renv}` and functional programming): [https://raps-with-r.dev/](https://raps-with-r.dev/)
