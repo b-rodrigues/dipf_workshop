@@ -68,11 +68,12 @@ A popular package manager:
 
 ## Reproducibility in the R ecosystem
 
-- `{renv}` deals with R packages
+- Per-project environments not often used
+- Popular choice: `{renv}`, but deals with R packages only
 - Still need to take care of R itself
 - System-level dependencies as well!
 
-A popular approach: Docker + `{renv}`
+A popular approach: Docker + `{renv}` (see [Rocker project](https://rocker-project.org/))
 
 Nix deals with everything, with one single text file (called a Nix expression)!
 
@@ -102,7 +103,7 @@ Nix deals with everything, with one single text file (called a Nix expression)!
 
 Eelco Dolstra, *Nix: A Safe and Policy-Free System for Software Deployment*
 
-## A basic Nix expression (1/5)
+## A basic Nix expression (1/6)
 
 ```
 let
@@ -119,16 +120,62 @@ in
 
 There's a lot to discuss here!
 
-## A basic Nix expression (2/5)
+## A basic Nix expression (2/6)
 
-- Written in the Nix language
+- Written in the Nix language (not discussed)
+- Defines the repository to use (with a fixed revision)
+- Lists packages to install
+- Defines the output: a development shell
+
+## A basic Nix expression (3/6)
+
+- Software for Nix is defined as a mono-repository of tens of thousands of expressions on Github
+- Github: we can use any commit to pin package versions for reproducibility!
+- For example, the following commit installs R 4.3.1 and associated packages:
+
+```
+pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/976fa3369d722e76f37c77493d99829540d43845.tar.gz") {};
+```
+
+- Let's take a look at the [repository](https://github.com/NixOS/nixpkgs)...
+
+## A basic Nix expression (4/6)
+
+- `system_packages`: a variable that lists software to install
+- In this case, only R:
+
+```
+system_packages = builtins.attrValues {
+  inherit (pkgs) R ;
+};
+```
+
+## A basic Nix expression (5/6)
+
+- Finally, we define a shell:
+
+```
+pkgs.mkShell {
+  buildInputs = [ system_packages ];
+  shellHook = "R --vanilla";
+}
+```
+
+- This shell will come with the software defined in `system_packages` (`buildInputs`)
+- And launch `R --vanilla` when started (`shellHook`)
+
+## A basic Nix expression (6/6)
+
+- Writing these expressions requires learning a new language
+- While incredibly powerful, if all we want are per-project reproducible dev shells...
+- ...then `{rix}` will help!
 
 ## Nix expressions
 
-- Nix expressions can be used to install software 
-- But we will use them to build per-project development shells 
+- Nix expressions can be used to install software
+- But we will use them to build per-project development shells
 - We will include R, LaTeX packages, or Quarto, Python, Julia....
-- Nix takes care of installating every dependency down to the compiler!
+- Nix takes care of installing every dependency down to the compiler!
 
 ## CRAN and Bioconductor
 
@@ -136,16 +183,11 @@ There's a lot to discuss here!
 - As of writing, +20000 packages available
 - Biocondcutor: repository with a focus on Bioinformatics: +2000 more packages
 - Almost all available through `nixpkgs` in the `rPackages` set!
+- Find packages [here](https://search.nixos.org/packages?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=dplyr)
 
-## Per-project environments
+## Basic rix usage
 
-- Per-project environments are not really a thing
-- Focus on providing a per-project library of packages
-- Docker if reproducibility is required (see [Rocker project](https://rocker-project.org/))
-
-## rix 1/2
-
-- Per-project reproducible environments with `{rix}`.
+- `{rix}` ([website](https://b-rodrigues.github.io/rix/index.html)) makes writing Nix expression easy!
 - Simply use the provided `rix()` function:
 
 ```{r, eval = FALSE}
@@ -157,13 +199,37 @@ rix(r_ver = "4.3.1",
     git_pkgs = NULL,
     tex_pkgs = NULL,
     ide = "rstudio",
+    # This shellHook is required to run Rstudio on Linux
+    # you can ignore it on other systems
+    shell_hook = "export QT_XCB_GL_INTEGRATION=none",
     project_path = ".")
 ```
 
-- Generates [this expression](https://raw.githubusercontent.com/b-rodrigues/fosdem2024_pres/master/shell.nix).
+- List required R version and packages
+- Optionally: more system packages, packages hosted on Github, or LaTeX packages
+- Optionally: an IDE (Rstudio, Radian, VS Code or "other")
+- Work interactively in an isolated environment!
 
+## Non-interactive use
 
-## rix 2/2
+- `{rix}` makes it easy to run pipelines in the right environment
+- (Little sidenote: the best tool to build pipelines in R is `{targets}`)
+- See `expressions/nix_targets_pipeline`
+
+## Nix and Github Actions: running pipelines
+
+- Possible to easily run a `{targets}` pipeline on Github actions
+- Simply run `rix::tar_nix_ga()` to generate the required files
+- Commit and push, and watch the actions run!
+- See [here](https://github.com/b-rodrigues/nix_targets_pipeline/tree/master).
+
+## Nix and Github Actions: writing papers
+
+- Easy collaboration on papers as well
+- See [here](https://github.com/b-rodrigues/rix_paper/tree/master)
+- Just focus on writing!
+
+## Subshells
 
 - Also possible to evaluate single function inside a "subshell":
 
@@ -178,10 +244,8 @@ out_nix <- with_nix(
 ```
 
 - Works from R installed via Nix or not!
+- See `expressions/subshell`
 
-## Live Demo
-
-## Nix and Github Actions
 
 ## To know more
 
