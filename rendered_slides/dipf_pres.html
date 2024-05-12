@@ -570,8 +570,8 @@ in
 <li>Find packages <a href="https://search.nixos.org/packages?channel=23.11&amp;from=0&amp;size=50&amp;sort=relevance&amp;type=packages&amp;query=dplyr">here</a></li>
 </ul>
 </section>
-<section id="basic-rix-usage" class="slide level2">
-<h2>Basic rix usage</h2>
+<section id="rix-reproducible-development-environments-with-nix-12" class="slide level2">
+<h2>rix: reproducible development environments with Nix (1/2)</h2>
 <ul>
 <li><code>{rix}</code> (<a href="https://b-rodrigues.github.io/rix/index.html">website</a>) makes writing Nix expression easy!</li>
 <li>Simply use the provided <code>rix()</code> function:</li>
@@ -597,13 +597,23 @@ in
 <li>Work interactively in an isolated environment!</li>
 </ul>
 </section>
+<section id="rix-reproducible-development-environments-with-nix-22" class="slide level2">
+<h2>rix: reproducible development environments with Nix (2/2)</h2>
+<ul>
+<li>Doesn’t need Nix to be installed to generate expressions</li>
+<li>(But Nix is needed to build expressions)</li>
+<li>Many vignettes to get you started! <a href="https://b-rodrigues.github.io/rix/articles/">See here</a></li>
+</ul>
+</section>
 <section id="non-interactive-use" class="slide level2">
 <h2>Non-interactive use</h2>
 <ul>
 <li><code>{rix}</code> makes it easy to run pipelines in the right environment</li>
 <li>(Little sidenote: the best tool to build pipelines in R is <code>{targets}</code>)</li>
 <li>See <code>expressions/nix_targets_pipeline</code></li>
+<li>Can also run the pipeline like so:</li>
 </ul>
+<pre><code>cd /absolute/path/to/pipeline/ &amp;&amp; nix-shell default.nix --run "Rscript -e 'targets::tar_make()'"</code></pre>
 </section>
 <section id="nix-and-github-actions-running-pipelines" class="slide level2">
 <h2>Nix and Github Actions: running pipelines</h2>
@@ -625,19 +635,9 @@ in
 <section id="subshells" class="slide level2">
 <h2>Subshells</h2>
 <ul>
-<li>Also possible to evaluate single function inside a “subshell”:</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>out_nix <span class="ot">&lt;-</span> <span class="fu">with_nix</span>(</span>
-<span id="cb6-2"><a href=""></a>  <span class="at">expr =</span> <span class="cf">function</span>() <span class="fu">my_function</span>(...),</span>
-<span id="cb6-3"><a href=""></a>  <span class="at">program =</span> <span class="st">"R"</span>,</span>
-<span id="cb6-4"><a href=""></a>  <span class="at">exec_mode =</span> <span class="st">"non-blocking"</span>, <span class="co"># run as background process</span></span>
-<span id="cb6-5"><a href=""></a>  <span class="at">project_path =</span> path_to_subshell.nix,</span>
-<span id="cb6-6"><a href=""></a>  <span class="at">message_type =</span> <span class="st">"simple"</span> <span class="co"># you can do `"verbose"`, too</span></span>
-<span id="cb6-7"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
+<li>Also possible to evaluate single functions inside a “subshell”</li>
 <li>Works from R installed via Nix or not!</li>
+<li>Very useful to use hard-to-install packages such as {arrow}</li>
 <li>See <code>expressions/subshell</code></li>
 </ul>
 </section>
