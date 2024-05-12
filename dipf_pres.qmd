@@ -185,7 +185,7 @@ pkgs.mkShell {
 - Almost all available through `nixpkgs` in the `rPackages` set!
 - Find packages [here](https://search.nixos.org/packages?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=dplyr)
 
-## Basic rix usage
+## rix: reproducible development environments with Nix (1/2)
 
 - `{rix}` ([website](https://b-rodrigues.github.io/rix/index.html)) makes writing Nix expression easy!
 - Simply use the provided `rix()` function:
@@ -210,11 +210,23 @@ rix(r_ver = "4.3.1",
 - Optionally: an IDE (Rstudio, Radian, VS Code or "other")
 - Work interactively in an isolated environment!
 
+## rix: reproducible development environments with Nix (2/2)
+
+- Doesn't need Nix to be installed to generate expressions
+- (But Nix is needed to build expressions)
+- Many vignettes to get you started! [See here](https://b-rodrigues.github.io/rix/articles/)
+
+
 ## Non-interactive use
 
 - `{rix}` makes it easy to run pipelines in the right environment
 - (Little sidenote: the best tool to build pipelines in R is `{targets}`)
 - See `expressions/nix_targets_pipeline`
+- Can also run the pipeline like so:
+
+```
+cd /absolute/path/to/pipeline/ && nix-shell default.nix --run "Rscript -e 'targets::tar_make()'"
+```
 
 ## Nix and Github Actions: running pipelines
 
@@ -231,19 +243,9 @@ rix(r_ver = "4.3.1",
 
 ## Subshells
 
-- Also possible to evaluate single function inside a "subshell":
-
-```{r, eval = F}
-out_nix <- with_nix(
-  expr = function() my_function(...),
-  program = "R",
-  exec_mode = "non-blocking", # run as background process
-  project_path = path_to_subshell.nix,
-  message_type = "simple" # you can do `"verbose"`, too
-)
-```
-
+- Also possible to evaluate single functions inside a "subshell"
 - Works from R installed via Nix or not!
+- Very useful to use hard-to-install packages such as {arrow}
 - See `expressions/subshell`
 
 
