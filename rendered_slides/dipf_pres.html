@@ -413,7 +413,11 @@ Bruno Rodrigues
 </section>
 <section id="goal-of-this-workshop" class="slide level2">
 <h2>Goal of this workshop</h2>
-<p>Learn just enough of Nix to use it for reproducibility</p>
+<ul>
+<li>Learn just enough of Nix to use it for your R projects</li>
+<li>Skim how to use Nix with Github Actions</li>
+<li>Time allowing: how to make your own binary cache using <a href="https://www.cachix.org/">Cachix</a></li>
+</ul>
 </section>
 <section id="what-is-nix-12" class="slide level2">
 <h2>What is Nix? (1/2)</h2>
@@ -428,7 +432,7 @@ Bruno Rodrigues
 <h2>What is Nix? (2/2)</h2>
 <p>A word of warning: Nix is quite complex</p>
 <p>It does require some time to learn on the user’s part</p>
-<p>But I developed <code>{rix}</code> which will help</p>
+<p>But <code>{rix}</code> will help</p>
 </section>
 <section id="the-nix-package-manager" class="slide level2">
 <h2>The Nix package manager</h2>
@@ -457,7 +461,7 @@ Bruno Rodrigues
 <li>System-level dependencies as well!</li>
 </ul>
 <p>A popular approach: Docker + <code>{renv}</code></p>
-<p>Nix deals with everything, with one single text file!</p>
+<p>Nix deals with everything, with one single text file (called a Nix expression)!</p>
 </section>
 <section id="functional-package-manager-12" class="slide level2">
 <h2>“Functional” package manager (1/2)</h2>
@@ -466,20 +470,21 @@ Bruno Rodrigues
 <li><p>Functional, as in, inpired by mathematical functions</p></li>
 <li><p>Why math functions?</p></li>
 </ul>
-<p>[ f(x)=y ]</p>
+<p>-&gt; f(x)=y</p>
 </section>
 <section id="functional-package-manager-22" class="slide level2">
 <h2>“Functional” package manager (2/2)</h2>
 <ul>
 <li><p>Building a Nix expression always results in the same output</p></li>
-<li><p>Output doesn’t depend on current system:</p></li>
+<li><p>Output doesn’t depend on state of current system:</p></li>
 </ul>
 <blockquote>
 <p>The idea is to always deploy component closures: if we deploy a component, then we must also deploy its dependencies, their dependencies, and so on. That is, we must always deploy a set of components that is closed under the ‘’depends on’’ relation. Since closures are selfcontained, they are the units of complete software deployment. After all, if a set of components is not closed, it is not safe to deploy, since using them might cause other components to be referenced that are missing on the target system.</p>
 </blockquote>
+<p>Eelco Dolstra, <em>Nix: A Safe and Policy-Free System for Software Deployment</em></p>
 </section>
-<section id="a-basic-nix-expression" class="slide level2">
-<h2>A basic Nix expression</h2>
+<section id="a-basic-nix-expression-15" class="slide level2">
+<h2>A basic Nix expression (1/5)</h2>
 <pre><code>let
   pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/976fa3369d722e76f37c77493d99829540d43845.tar.gz") {};
   system_packages = builtins.attrValues {
@@ -490,6 +495,13 @@ in
     buildInputs = [ system_packages ];
     shellHook = "R --vanilla";
   }</code></pre>
+<p>There’s a lot to discuss here!</p>
+</section>
+<section id="a-basic-nix-expression-25" class="slide level2">
+<h2>A basic Nix expression (2/5)</h2>
+<ul>
+<li>Written in the Nix language</li>
+</ul>
 </section>
 <section id="nix-expressions" class="slide level2">
 <h2>Nix expressions</h2>
@@ -564,7 +576,13 @@ in
 </section>
 <section id="to-know-more" class="slide level2">
 <h2>To know more</h2>
-<pre><code>https://b-rodrigues.github.io/rix/</code></pre>
+<ul>
+<li><p>Official Nix documentation: <a href="https://nix.dev/">https://nix.dev/</a></p></li>
+<li><p>Nix pills: <a href="https://nixos.org/guides/nix-pills/00-preface">https://nixos.org/guides/nix-pills/00-preface</a></p></li>
+<li><p>Nix tutorial by INRIA: <a href="https://nix-tutorial.gitlabpages.inria.fr/nix-tutorial/">https://nix-tutorial.gitlabpages.inria.fr/nix-tutorial/</a></p></li>
+<li><p>My blog: <a href="https://b-rodrigues.github.io/rix/">https://b-rodrigues.github.io/rix/</a></p></li>
+<li><p>My book (doesn’t cover Nix, but Docker, <code>{renv}</code> and functional programming): <a href="https://raps-with-r.dev/">https://raps-with-r.dev/</a></p></li>
+</ul>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
