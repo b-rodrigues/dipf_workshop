@@ -272,6 +272,8 @@ pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/re
 pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/78f705bd8689ad7d215f4b3aea9d9c1302a31b99.tar.gz") {};
 ```
 
+- Will soon be supported in `{rix}`
+
 ## Bleeding edge development environments (2/2)
 
 - But: everything needs to be built from source
