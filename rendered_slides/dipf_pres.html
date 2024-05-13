@@ -415,7 +415,7 @@ Bruno Rodrigues
 <h2>Goal of this workshop</h2>
 <ul>
 <li>Learn just enough of Nix to use it for your R projects</li>
-<li>Skim how to use Nix with Github Actions</li>
+<li>Show different use-cases</li>
 <li>Time allowing: how to make your own binary cache using <a href="https://www.cachix.org/">Cachix</a></li>
 </ul>
 </section>
@@ -600,8 +600,12 @@ in
 <section id="rix-reproducible-development-environments-with-nix-22" class="slide level2">
 <h2>rix: reproducible development environments with Nix (2/2)</h2>
 <ul>
-<li>Doesn’t need Nix to be installed to generate expressions</li>
-<li>(But Nix is needed to build expressions)</li>
+<li><code>rix::rix()</code> generates a <code>default.nix</code> file</li>
+<li>Build expressions using <code>nix-build</code> (in terminal) or <code>rix::nix_build()</code> from R</li>
+<li>“Drop” into the development environment using <code>nix-shell</code></li>
+<li>Expressions can be generated even without Nix installed</li>
+<li>Can install specific versions of packages</li>
+<li>Can install packages hosted on Github</li>
 <li>Many vignettes to get you started! <a href="https://b-rodrigues.github.io/rix/articles/">See here</a></li>
 </ul>
 </section>
@@ -639,6 +643,35 @@ in
 <li>Works from R installed via Nix or not!</li>
 <li>Very useful to use hard-to-install packages such as {arrow}</li>
 <li>See <code>expressions/subshell</code></li>
+</ul>
+</section>
+<section id="r-packages-release-cycle" class="slide level2">
+<h2>R packages release cycle</h2>
+<ul>
+<li>CRAN is updated daily, but it’s not reflected in nixpkgs</li>
+<li>The <code>rPackages</code> set gets updated around new R releases (every 3 months or so)</li>
+<li>What if more recent packages are required?</li>
+<li>One solution: use our <code>nixpkgs</code> fork from our <code>rstats-on-nix</code> <a href="https://github.com/rstats-on-nix/nixpkgs/tree/r-daily">organisation</a>!</li>
+</ul>
+</section>
+<section id="bleeding-edge-development-environments-12" class="slide level2">
+<h2>Bleeding edge development environments (1/2)</h2>
+<ul>
+<li>To use our bleeding edge fork simply change the <code>pkgs</code> variable:</li>
+</ul>
+<pre><code>pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/refs/heads/r-daily.tar.gz") {};</code></pre>
+<ul>
+<li>You can also use a specific commit of the fork instead:</li>
+</ul>
+<pre><code>pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/78f705bd8689ad7d215f4b3aea9d9c1302a31b99.tar.gz") {};</code></pre>
+</section>
+<section id="bleeding-edge-development-environments-22" class="slide level2">
+<h2>Bleeding edge development environments (2/2)</h2>
+<ul>
+<li>But: everything needs to be built from source</li>
+<li>Solution: roll out your own binary cache using <a href="https://www.cachix.org/">Cachix</a></li>
+<li>Build the development environment on Github Actions</li>
+<li>On your pc: install pre-compiled binaries!</li>
 </ul>
 </section>
 <section id="to-know-more" class="slide level2">

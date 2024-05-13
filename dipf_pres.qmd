@@ -23,7 +23,7 @@ execute:
 ## Goal of this workshop
 
 - Learn just enough of Nix to use it for your R projects
-- Skim how to use Nix with Github Actions
+- Show different use-cases
 - Time allowing: how to make your own binary cache using [Cachix](https://www.cachix.org/)
 
 ## What is Nix? (1/2)
@@ -212,10 +212,13 @@ rix(r_ver = "4.3.1",
 
 ## rix: reproducible development environments with Nix (2/2)
 
-- Doesn't need Nix to be installed to generate expressions
-- (But Nix is needed to build expressions)
+- `rix::rix()` generates a `default.nix` file
+- Build expressions using `nix-build` (in terminal) or `rix::nix_build()` from R 
+- "Drop" into the development environment using `nix-shell`
+- Expressions can be generated even without Nix installed
+- Can install specific versions of packages
+- Can install packages hosted on Github
 - Many vignettes to get you started! [See here](https://b-rodrigues.github.io/rix/articles/)
-
 
 ## Non-interactive use
 
@@ -248,6 +251,33 @@ cd /absolute/path/to/pipeline/ && nix-shell default.nix --run "Rscript -e 'targe
 - Very useful to use hard-to-install packages such as {arrow}
 - See `expressions/subshell`
 
+## R packages release cycle
+
+- CRAN is updated daily, but it’s not reflected in nixpkgs
+- The `rPackages` set gets updated around new R releases (every 3 months or so)
+- What if more recent packages are required?
+- One solution: use our `nixpkgs` fork from our `rstats-on-nix` [organisation](https://github.com/rstats-on-nix/nixpkgs/tree/r-daily)!
+
+## Bleeding edge development environments (1/2)
+
+- To use our bleeding edge fork simply change the `pkgs` variable:
+
+```
+pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/refs/heads/r-daily.tar.gz") {};
+```
+
+- You can also use a specific commit of the fork instead:
+
+```
+pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/78f705bd8689ad7d215f4b3aea9d9c1302a31b99.tar.gz") {};
+```
+
+## Bleeding edge development environments (2/2)
+
+- But: everything needs to be built from source
+- Solution: roll out your own binary cache using [Cachix](https://www.cachix.org/)
+- Build the development environment on Github Actions
+- On your pc: install pre-compiled binaries!
 
 ## To know more
 
