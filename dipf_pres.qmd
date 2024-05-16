@@ -3,8 +3,10 @@ title: "rix: reproducible development environments for R programmers"
 author: "Bruno Rodrigues"
 format:
   revealjs:
+    embed-resources: true
     slide-number: true
     theme: solarized
+    incremental: true
 execute:
   echo: true
 ---
@@ -87,11 +89,11 @@ Nix deals with everything, with one single text file (called a Nix expression)!
 
 -> f(x)=y
 
-## "Functional" package manager (2/2)
-
 - Building a Nix expression always results in the same output
 
 - Output doesn't depend on state of current system:
+
+## "Functional" package manager (2/2)
 
 > The idea is to always deploy component closures: if we deploy a component,
 > then we must also deploy its dependencies, their dependencies, and so on. That
@@ -185,10 +187,12 @@ pkgs.mkShell {
 - Almost all available through `nixpkgs` in the `rPackages` set!
 - Find packages [here](https://search.nixos.org/packages?channel=23.11&from=0&size=50&sort=relevance&type=packages&query=dplyr)
 
-## rix: reproducible development environments with Nix (1/2)
+## rix: reproducible development environments with Nix (1/4)
 
 - `{rix}` ([website](https://b-rodrigues.github.io/rix/index.html)) makes writing Nix expression easy!
 - Simply use the provided `rix()` function:
+
+. . .
 
 ```{r, eval = FALSE}
 library(rix)
@@ -205,20 +209,29 @@ rix(r_ver = "4.3.1",
     project_path = ".")
 ```
 
+## rix: reproducible development environments with Nix (2/4)
+
 - List required R version and packages
 - Optionally: more system packages, packages hosted on Github, or LaTeX packages
 - Optionally: an IDE (Rstudio, Radian, VS Code or "other")
 - Work interactively in an isolated environment!
 
-## rix: reproducible development environments with Nix (2/2)
+## rix: reproducible development environments with Nix (3/4)
 
 - `rix::rix()` generates a `default.nix` file
 - Build expressions using `nix-build` (in terminal) or `rix::nix_build()` from R 
 - "Drop" into the development environment using `nix-shell`
 - Expressions can be generated even without Nix installed
-- Can install specific versions of packages
+
+## rix: reproducible development environments with Nix (4/4)
+
+- Can install specific versions of packages (write `"dplyr@1.0.0"`)
 - Can install packages hosted on Github
 - Many vignettes to get you started! [See here](https://b-rodrigues.github.io/rix/articles/)
+
+. . .
+
+Let's check out `expressions/rix_intro/`
 
 ## Non-interactive use
 
