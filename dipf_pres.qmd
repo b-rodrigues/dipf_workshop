@@ -81,6 +81,8 @@ A popular package manager:
 
 A popular approach: Docker + `{renv}` (see [Rocker project](https://rocker-project.org/))
 
+. . .
+
 Nix deals with everything, with one single text file (called a Nix expression)!
 
 ## "Functional" package manager (1/2)
