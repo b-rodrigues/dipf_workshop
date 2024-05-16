@@ -14,6 +14,7 @@
 .quarto/xref/9e559ecd
 .quarto/xref/INDEX
 .quarto/xref/c6a16cf0
+.quarto/xref/c906b7fe
 .quarto/xref/db9a9fe0
 .quarto/xref/f3283fef
 .targets-files
@@ -97,4 +98,3 @@ rendered_slides/dipf_pres_files/libs/revealjs/plugin/zoom/zoom.esm.js
 rendered_slides/dipf_pres_files/libs/revealjs/plugin/zoom/zoom.js
 rendered_slides/img/play_store.png
 result
-.gitignore

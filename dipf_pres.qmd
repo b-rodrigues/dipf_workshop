@@ -34,6 +34,8 @@ execute:
 - A programming language
 - An operating system ([NixOS](https://nixos.org/))
 
+. . .
+
 Our focus today: the package manager
 
 ## What is Nix? (2/2)
@@ -75,17 +77,21 @@ A popular package manager:
 - Still need to take care of R itself
 - System-level dependencies as well!
 
+. . .
+
 A popular approach: Docker + `{renv}` (see [Rocker project](https://rocker-project.org/))
 
 Nix deals with everything, with one single text file (called a Nix expression)!
 
 ## "Functional" package manager (1/2)
 
-- Nix: a *functional* package mananger
+- Nix: a *functional* package manager
 
-- Functional, as in, inpired by mathematical functions
+- Functional, as in, inspired by mathematical functions
 
 - Why math functions?
+
+. . .
 
 -> f(x)=y
 
@@ -103,7 +109,10 @@ Nix deals with everything, with one single text file (called a Nix expression)!
 > closed, it is not safe to deploy, since using them might cause other
 > components to be referenced that are missing on the target system.
 
-Eelco Dolstra, *Nix: A Safe and Policy-Free System for Software Deployment*
+<p style="font-size: x-large">Eelco Dolstra, *Nix: A Safe and Policy-Free System for Software Deployment*</p>
+
+
+
 
 ## A basic Nix expression (1/6)
 
@@ -135,6 +144,8 @@ There's a lot to discuss here!
 - Github: we can use any commit to pin package versions for reproducibility!
 - For example, the following commit installs R 4.3.1 and associated packages:
 
+. . .
+
 ```
 pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/976fa3369d722e76f37c77493d99829540d43845.tar.gz") {};
 ```
@@ -146,6 +157,8 @@ pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/976fa3369d
 - `system_packages`: a variable that lists software to install
 - In this case, only R:
 
+. . .
+
 ```
 system_packages = builtins.attrValues {
   inherit (pkgs) R ;
@@ -156,12 +169,16 @@ system_packages = builtins.attrValues {
 
 - Finally, we define a shell:
 
+. . .
+
 ```
 pkgs.mkShell {
   buildInputs = [ system_packages ];
   shellHook = "R --vanilla";
 }
 ```
+
+. . .
 
 - This shell will come with the software defined in `system_packages` (`buildInputs`)
 - And launch `R --vanilla` when started (`shellHook`)
@@ -236,9 +253,11 @@ Let's check out `expressions/rix_intro/`
 ## Non-interactive use
 
 - `{rix}` makes it easy to run pipelines in the right environment
-- (Little sidenote: the best tool to build pipelines in R is `{targets}`)
+- (Little side note: the best tool to build pipelines in R is `{targets}`)
 - See `expressions/nix_targets_pipeline`
 - Can also run the pipeline like so:
+
+. . .
 
 ```
 cd /absolute/path/to/pipeline/ && nix-shell default.nix --run "Rscript -e 'targets::tar_make()'"
@@ -275,15 +294,21 @@ cd /absolute/path/to/pipeline/ && nix-shell default.nix --run "Rscript -e 'targe
 
 - To use our bleeding edge fork simply change the `pkgs` variable:
 
+. . .
+
 ```
 pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/refs/heads/r-daily.tar.gz") {};
 ```
 
 - You can also use a specific commit of the fork instead:
 
+. . .
+
 ```
 pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/78f705bd8689ad7d215f4b3aea9d9c1302a31b99.tar.gz") {};
 ```
+
+. . .
 
 - Will soon be supported in `{rix}`
 
